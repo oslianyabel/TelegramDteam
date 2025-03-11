@@ -1,0 +1,9 @@
+flask
+openai
+pyngrok
+pytelegrambotapi
+python-dotenv
+telebot
+waitress
+requests
+colorama

@@ -1,9 +1,8 @@
 flask
-openai
-pyngrok
-pytelegrambotapi
-python-dotenv
-telebot
 waitress
+pytelegrambotapi
+telebot
+pyngrok
 requests
+python-dotenv
 colorama

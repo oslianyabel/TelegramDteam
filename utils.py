@@ -12,7 +12,6 @@ bot = telebot.TeleBot(os.getenv("TELEGRAM_TOKEN"))
 
 def send_message(data, id):
     bot.send_chat_action(id, "typing")
-    # headers = {"token": API_SECRET}
     response = requests.post(URL_API, json=data)
     print(f"Status Code: {response.status_code}")
     ans = response.json()

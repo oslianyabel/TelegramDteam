@@ -2,14 +2,16 @@ import os
 import time
 
 import telebot
-import utils
 from dotenv import load_dotenv
 from flask import Flask, request
 from pyngrok import conf, ngrok
 from telebot.types import ReplyKeyboardRemove
 from waitress import serve
 
+import utils
+
 load_dotenv()
+secret = os.getenv("API_SECRET")
 bot = telebot.TeleBot(os.getenv("TELEGRAM_TOKEN"))
 web_server = Flask(__name__)
 
@@ -31,8 +33,9 @@ def webhook():
 def cmd_start(message):
     print("/start")
     data = {
-        "thread_id": str(message.chat.id),
+        "chat_id": str(message.chat.id),
         "message": "Hola, en qué me puedes ayudar?",
+        "secret": secret,
     }
     ans = utils.send_message(data, message.chat.id)
     send_message(message, ans)
@@ -41,7 +44,11 @@ def cmd_start(message):
 @bot.message_handler(content_types=["text"])
 def reply_text(message):
     print(f"- User: {message.text}")
-    data = {"thread_id": str(message.chat.id), "message": message.text}
+    data = {
+        "chat_id": str(message.chat.id),
+        "message": message.text,
+        "secret": secret,
+    }
     ans = utils.send_message(data, message.chat.id)
     send_message(message, ans)
 
